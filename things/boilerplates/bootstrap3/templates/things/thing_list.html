@@ -1,0 +1,8 @@
+{% extends "things/fullwidth.html" %}
+{% load i18n cms_tags %}
+
+{% block thing_content %}
+    {% with list="true" %}
+        {% include "things/includes/thing_list.html" %}
+    {% endwith %}
+{% endblock %}

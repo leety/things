@@ -1,0 +1,14 @@
+*.log
+*.pot
+*.pyc
+*~
+.idea
+.tox/*
+dist/*
+build/*
+*.egg-info/*
+local_settings.py
+.coverage
+*.sublime-project
+*.sublime-workspace
+env/

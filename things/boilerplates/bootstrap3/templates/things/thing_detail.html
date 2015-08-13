@@ -1,0 +1,17 @@
+{% extends "things/fullwidth.html" %}
+{% load i18n cms_tags %}
+
+{% block thing_content %}
+    <article class="things thing-detail">
+        {% block thing_detail_title %}
+            <h2>{% render_model object "name" %}</h2>
+        {% endblock thing_detail_title %}
+
+        {% block thing_detail_content %}
+            <div class="content">
+                {{ object.name }}
+            </div>
+        {% endblock thing_detail_content %}
+    </article>
+{% endblock %}
+

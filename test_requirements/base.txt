@@ -1,0 +1,13 @@
+aldryn-apphook-reload
+aldryn-translation-tools>=0.1.1
+coverage>=3.7.1
+https://github.com/nephila/djangocms-helper/archive/develop.zip
+docopt
+flake8
+html5lib
+pyflakes
+selenium
+
+# docs
+sphinx
+sphinx-rtd-theme

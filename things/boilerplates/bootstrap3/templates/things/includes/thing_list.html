@@ -1,0 +1,12 @@
+{% load i18n cms_tags %}
+{% load url from future %}
+
+<div class="panel panel-primary">
+    <div class="list-group">
+        {% for thing in object_list %}
+            <a href="{{ thing.get_absolute_url }}">
+                {% render_model thing "name" %}
+            </a>
+        {% endfor %}
+    </div>
+</div>
