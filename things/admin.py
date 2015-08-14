@@ -107,22 +107,25 @@ class ThingAdmin(AllTranslationsMixin, FrontendEditableAdminMixin,
     _fieldsets = (
         # Put translatable fields in the first section, as this is closely
         # associated with the language tabs in the UI.
-        (None, {'fields': (
-            ('name', 'slug'),
-        )}),
+        (None, {
+            'fields': (
+                ('name', 'slug'),
+            )
+        }),
         # Put non-translated fields in subsequent sections.
         (_('Advanced'), {
             'classes': ('collapse',),
             'fields': (
+                'is_published',
             )
-        })
+        }),
     )
 
 admin.site.register(Thing, ThingAdmin)
 
 
 class ThingsConfigAdmin(AllTranslationsMixin, PlaceholderAdminMixin,
-                       BaseAppHookConfig, TranslatableAdmin):
+                        BaseAppHookConfig, TranslatableAdmin):
     """
     BaseAppHookConfig
     -----------------
