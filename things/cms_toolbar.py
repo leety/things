@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 try:
     from urllib import urlencode
-except ImportError:
+except ImportError:  # pragma: no cover
     from urllib.parse import urlencode
 
 from django.core.exceptions import ImproperlyConfigured

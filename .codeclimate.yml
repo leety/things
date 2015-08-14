@@ -1,0 +1,6 @@
+languages:
+   Python: true
+exclude_paths:
+- things/tests/**/*
+- things/migrations/**/*
+- things/south_migrations/**/*

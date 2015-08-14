@@ -12,8 +12,8 @@ class TestSitemaps(ThingsTransactionTestCase):
     def test_sitemap_items(self):
         sitemap = ThingsSitemap()
         self.assertEqualItems(
-            sitemap.items(),
-            [self.thing1, self.thing2]
+            [item.pk for item in sitemap.items()],
+            [self.thing1.pk, self.thing2.pk]
         )
 
     def test_sitemap_locations(self):

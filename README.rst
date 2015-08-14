@@ -1,10 +1,9 @@
-#############
-Aldryn People
-#############
+######
+Things
+######
 
-|PyPI Version| |Build Status| |Coverage Status| |codeclimate| |requires_io|
+|PyPI Version| |Build Status| |codeclimate|
 
-|Browser Matrix|
 
 Things is a starter-project for your translatable, revision-able,
 Spaces-supporting Aldryn addon. It aims to be:
@@ -33,17 +32,17 @@ Requirements
 * Python 2.6, 2.7, 3.3 or 3.4
 
 
-.. |PyPI Version| image:: https://badge.fury.io/py/things.svg
-    :target: http://badge.fury.io/py/things
-.. |Build Status| image:: https://travis-ci.org/aldryn/things.svg?branch=develop
-    :target: https://travis-ci.org/aldryn/things
-.. |Coverage Status| image:: https://img.shields.io/coveralls/aldryn/things.svg
+.. |PyPI Version| image:: https://badge.fury.io/py/aldryn-things.svg
+    :target: http://badge.fury.io/py/aldryn-things
+.. |Build Status| image:: https://magnum.travis-ci.com/aldryn/things.svg?token=scMdZLWiDbgay5iKhJ3v
+    :target: https://magnum.travis-ci.com/aldryn/things
+.. disabled |Coverage Status| image:: https://img.shields.io/coveralls/aldryn/things.svg
     :target: https://coveralls.io/r/aldryn/things
-.. |codeclimate| image:: https://codeclimate.com/github/aldryn/things/badges/gpa.svg
-   :target: https://codeclimate.com/github/aldryn/things
+.. |codeclimate| image:: https://d3s6mut3hikguw.cloudfront.net/repos/55ccef08e30ba0100400057b/badges/900dd9777c671cfd6cce/gpa.svg
+   :target: https://codeclimate.com/repos/55ccef08e30ba0100400057b/badges
    :alt: Code Climate
 .. |Browser Matrix| image:: https://saucelabs.com/browser-matrix/aldryn-jobs.svg
    :target: https://saucelabs.com/u/aldryn-jobs
-.. |requires_io| image:: https://requires.io/github/aldryn/things/requirements.svg?branch=master
+.. disabled |requires_io| image:: https://requires.io/github/aldryn/things/requirements.svg?branch=master
    :target: https://requires.io/github/aldryn/things/requirements/?branch=master
    :alt: Requirements Status

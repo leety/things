@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, ungettext
 
 from aldryn_apphooks_config.admin import BaseAppHookConfig
 from aldryn_reversion.admin import VersionedPlaceholderAdminMixin
@@ -16,6 +16,49 @@ from parler.admin import TranslatableAdmin
 
 from .cms_appconfig import ThingsConfig
 from .models import Thing
+
+
+class AdminActionHelper(object):
+    def __init__(self, is_true, obj_name_plural, on_label, off_label):
+        self.is_true = is_true
+        self.obj_name_plural = obj_name_plural
+        self.on_label = on_label
+        self.off_label = off_label
+
+    def get_state_label(self):
+        return self.on_label if self.is_true else self.off_label
+
+    def message_user(self, modeladmin, request, model, count, state):
+        msg = ungettext(
+            "%(count)d %(obj_name)s was set to %(state)s.",
+            "%(count)d %(obj_name_plural)s were set to %(state)s.",
+            count) % {
+                'count': count,
+                'obj_name': model._meta.verbose_name_raw,
+                'obj_name_plural': self.obj_name_plural,
+                'state': state}
+        modeladmin.message_user(request, msg)
+
+    @property
+    def short_description(self):
+        return _("Set selected {0} as {1}").format(
+            self.obj_name_plural,
+            self.get_state_label())
+
+    @property
+    def __name__(self):
+        return "Set selected {0} as {1}".format(
+            self.obj_name_plural,
+            self.get_state_label())
+
+
+class SetPublishedHelper(AdminActionHelper):
+
+    def __call__(self, modeladmin, request, queryset):
+        model = queryset.model
+        count = queryset.update(is_published=self.is_true)
+        state = self.get_state_label()
+        self.message_user(modeladmin, request, model, count, state)
 
 
 class ThingAdmin(AllTranslationsMixin, FrontendEditableAdminMixin,
@@ -54,8 +97,11 @@ class ThingAdmin(AllTranslationsMixin, FrontendEditableAdminMixin,
     reposition this to another column (not recommended), simply place the field
     "all_translations" wherever you like in the ``list_display`` tuple.
     """
-    list_display = ('name', )
-
+    list_display = ('name', 'is_published', )
+    actions = (
+        SetPublishedHelper(True, "things", "published", "unpublished"),
+        SetPublishedHelper(False, "things", "published", "unpublished"),
+    )
     # NOTE: TranslatableAdmin requires that ``fieldsets`` are defined in
     # ``_fieldsets`` (note the leading underscore).
     _fieldsets = (

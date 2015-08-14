@@ -33,7 +33,7 @@ class ThingsMenu(CMSAttachMenu):
                                .language(language)
                                .active_translations(language))
 
-        if hasattr(self, 'instance') and self.instance:
+        if hasattr(self, 'instance') and self.instance:  # pragma: no cover
             # If self has a property `instance`, then we're using django CMS
             # 3.0.12 or later, which supports using CMSAttachMenus on multiple,
             # apphook'ed pages, each with their own apphook configuration. So,
@@ -50,7 +50,7 @@ class ThingsMenu(CMSAttachMenu):
                 url = thing.get_absolute_url(language=language)
                 node = NavigationNode(thing.name, url, thing.pk)
                 nodes.append(node)
-            except NoReverseMatch:
+            except NoReverseMatch:  # pragma: no cover
                 pass
 
         return nodes
