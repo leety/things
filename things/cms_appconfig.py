@@ -17,7 +17,8 @@ class ThingsConfig(TranslatableModel, AppHookConfig):
 
     translations = TranslatedFields(
         app_title=models.CharField(
-            _('application title'), max_length=234, blank=True, default=''))
+            _('application title'), max_length=234, blank=True, default=''),
+    )
 
     def get_app_title(self):
         return getattr(self, 'app_title', _('untitled'))
