@@ -18,49 +18,6 @@ from .cms_appconfig import ThingsConfig
 from .models import Thing
 
 
-class AdminActionHelper(object):
-    def __init__(self, is_true, obj_name_plural, on_label, off_label):
-        self.is_true = is_true
-        self.obj_name_plural = obj_name_plural
-        self.on_label = on_label
-        self.off_label = off_label
-
-    def get_state_label(self):
-        return self.on_label if self.is_true else self.off_label
-
-    def message_user(self, modeladmin, request, model, count, state):
-        msg = ungettext(
-            "%(count)d %(obj_name)s was set to %(state)s.",
-            "%(count)d %(obj_name_plural)s were set to %(state)s.",
-            count) % {
-                'count': count,
-                'obj_name': model._meta.verbose_name_raw,
-                'obj_name_plural': self.obj_name_plural,
-                'state': state}
-        modeladmin.message_user(request, msg)
-
-    @property
-    def short_description(self):
-        return _("Set selected {0} as {1}").format(
-            self.obj_name_plural,
-            self.get_state_label())
-
-    @property
-    def __name__(self):
-        return "Set selected {0} as {1}".format(
-            self.obj_name_plural,
-            self.get_state_label())
-
-
-class SetPublishedHelper(AdminActionHelper):
-
-    def __call__(self, modeladmin, request, queryset):
-        model = queryset.model
-        count = queryset.update(is_published=self.is_true)
-        state = self.get_state_label()
-        self.message_user(modeladmin, request, model, count, state)
-
-
 class ThingAdmin(AllTranslationsMixin, FrontendEditableAdminMixin,
                  VersionedPlaceholderAdminMixin, TranslatableAdmin):
     """
@@ -98,10 +55,7 @@ class ThingAdmin(AllTranslationsMixin, FrontendEditableAdminMixin,
     "all_translations" wherever you like in the ``list_display`` tuple.
     """
     list_display = ('name', 'is_published', )
-    actions = (
-        SetPublishedHelper(True, "things", "published", "unpublished"),
-        SetPublishedHelper(False, "things", "published", "unpublished"),
-    )
+    actions = ('mark_published', 'mark_unpublished', )
     # NOTE: TranslatableAdmin requires that ``fieldsets`` are defined in
     # ``_fieldsets`` (note the leading underscore).
     _fieldsets = (
@@ -114,12 +68,28 @@ class ThingAdmin(AllTranslationsMixin, FrontendEditableAdminMixin,
         }),
         # Put non-translated fields in subsequent sections.
         (_('Advanced'), {
-            'classes': ('collapse',),
+            # 'classes': ('collapse', ),
             'fields': (
                 'is_published',
             )
         }),
     )
+
+    def mark_published(self, request, queryset):
+        row_count = queryset.update(is_published=True)
+        msg = ungettext("1 thing was marked as published"
+                        "%d things were marked as published" % row_count,
+                        row_count)
+        self.message_user(request, msg)
+    mark_published.short_description = "Mark selected things as published."
+
+    def mark_unpublished(self, request, queryset):
+        row_count = queryset.update(is_published=False)
+        msg = ungettext("1 thing was marked as unpublished"
+                        "%d things were marked as unpublished" % row_count,
+                        row_count)
+        self.message_user(request, msg)
+    mark_published.short_description = "Mark selected things as unpublished."
 
 admin.site.register(Thing, ThingAdmin)
 

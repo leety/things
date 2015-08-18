@@ -11,7 +11,7 @@ from cms import api
 from cms.test_utils.testcases import CMSTestCase
 from cms.utils.conf import get_cms_setting
 
-from ..admin import SetPublishedHelper, ThingsConfigAdmin
+from ..admin import ThingsConfigAdmin
 from ..cms_appconfig import ThingsConfig
 
 from . import ThingTestMixin, ThingsTransactionTestCase
@@ -75,14 +75,3 @@ class TestAdminActions(ThingTestMixin, CMSTestCase):
         mid = MessageMiddleware()
         mid.process_request(request)
         return request
-
-    def test_set_published(self):
-        """
-        Tests the SetPublishedHelper.
-        """
-        published = SetPublishedHelper(
-            True, "things", "published", "unpublished")
-        self.assertEqual(published.get_state_label(), "published")
-        self.assertEqual(published.short_description,
-                         "Set selected things as published")
-        self.assertEqual(published.__name__, "Set selected things as published")
