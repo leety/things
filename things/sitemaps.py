@@ -2,33 +2,23 @@
 
 from __future__ import unicode_literals
 
-from django.conf import settings
-from django.core.urlresolvers import NoReverseMatch
-from django.contrib.sitemaps import Sitemap
-from django.utils import translation
+from aldryn_translation_tools.sitemaps import I18NSitemap
 
 from .models import Thing
 
 
-class I18NSitemap(Sitemap):
-
-    def __init__(self, language=None):
-        if language:
-            self.language = language
-        else:
-            self.language = settings.LANGUAGES[0][0]
-
-    def location(self, item):
-        with translation.override(self.language):
-            try:
-                return item.get_absolute_url()
-            except NoReverseMatch:  # pragma: no cover
-                # Note, if we did our job right in items(), this
-                # shouldn't happen at all.
-                return ''
-
-
 class ThingsSitemap(I18NSitemap):
+    """
+    I18NSitemap
+    -----------
+    This is provided by Aldryn Translation Tools and augments the normal,
+    django.contrib.sitemap with the ability to accept a language-code in the
+    constructor, and use the same when getting an items location.
+
+    NOTE: It is important that when you implement Sitemap.items() the queryset
+    will limit the objects to only those available in the language specified in
+    self.language.
+    """
     changefreq = "weekly"
     priority = 0.75
 
