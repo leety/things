@@ -2,7 +2,7 @@
 Things
 ######
 
-|PyPI_Version| |Build_Status| |Coverage_Status| |Code_Climate|
+|Build_Status| |Coverage_Status| |Code_Climate|
 
 
 Things is a full-featured starter-project for your translatable, revision-able,
@@ -32,7 +32,7 @@ Requirements
 * Python 2.6, 2.7, 3.3, 3.4, or 3.5
 
 
-.. |PyPI_Version| image:: https://badge.fury.io/py/aldryn-things.svg
+.. disabled |PyPI_Version| image:: https://badge.fury.io/py/aldryn-things.svg
     :target: http://badge.fury.io/py/aldryn-things
 .. |Build_Status| image:: https://travis-ci.org/aldryn/things.svg?branch=master
     :target: https://travis-ci.org/aldryn/things
