@@ -36,8 +36,8 @@ Requirements
     :target: http://badge.fury.io/py/aldryn-things
 .. |Build_Status| image:: https://travis-ci.org/aldryn/things.svg?branch=master
     :target: https://travis-ci.org/aldryn/things
-.. |Coverage_Status| image:: https://img.shields.io/coveralls/aldryn/things.svg
-    :target: https://coveralls.io/r/aldryn/things
+.. |Coverage_Status| image:: https://travis-ci.org/aldryn/things.svg?branch=master
+    :target: https://travis-ci.org/aldryn/things
 .. |Code_Climate| image:: https://d3s6mut3hikguw.cloudfront.net/repos/55ccef08e30ba0100400057b/badges/900dd9777c671cfd6cce/gpa.svg
    :target: https://codeclimate.com/repos/55ccef08e30ba0100400057b/badges
    :alt: Code Climate
