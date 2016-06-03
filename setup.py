@@ -3,14 +3,14 @@ from setuptools import setup, find_packages
 from things import __version__
 
 REQUIREMENTS = [
-    'Django>=1.6,<1.9',
+    'Django>=1.6,<1.10',
     'aldryn-apphooks-config>=0.2.4',
     'aldryn-boilerplates>=0.6.0',
     'aldryn-common>=0.1.3',
     'aldryn-reversion>=0.1.0',
     'aldryn-translation-tools>=0.1.1',
     'django-parler>=1.4',
-    'django-reversion>=1.8.2,<1.9',
+    'django-reversion>=1.8.2,<1.11',
 ]
 
 # https://pypi.python.org/pypi?%3Aaction=list_classifiers

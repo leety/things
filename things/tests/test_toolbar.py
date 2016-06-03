@@ -6,6 +6,7 @@ from django.conf import settings
 from django.core.urlresolvers import resolve, reverse
 
 from django.test.client import RequestFactory
+from django.utils.encoding import force_text
 
 from cms import api
 from cms.middleware.toolbar import ToolbarMiddleware
@@ -144,14 +145,16 @@ class TestToolbar(ThingTestMixin, CMSTestCase):
         self.assertTrue(things_menu is not None)
 
         thing_menu_items = things_menu.get_items()
-        thing_menu_item_names = [
-            item.name for item in thing_menu_items if hasattr(item, 'name')]
-        item_names = ['Configure addon ...', 'Thing list ...',
-                      'Add new thing ...', 'Edit this thing ...',
-                      'Delete this thing ...']
-
+        thing_menu_item_names = [force_text(item.name) for item in thing_menu_items if hasattr(item, 'name')]  # noqa
+        item_names = ['Configure addon', 'Thing list', 'Add new thing',
+                      'Edit this thing', 'Delete this thing']
         for item_name in item_names:
-            self.assertTrue(item_name in thing_menu_item_names)
+            # Older versions of the CMS have an extra space
+            for ending in ['...', ' ...']:
+                if "{0}{1}".format(item_name, ending) in thing_menu_item_names:
+                    break
+            else:
+                self.fail('Item: "{0}" not found.'.format(item_name))
 
     def test_populate_list_view(self):
         url = self.page.get_absolute_url('en')
@@ -163,10 +166,12 @@ class TestToolbar(ThingTestMixin, CMSTestCase):
         self.assertTrue(things_menu is not None)
 
         thing_menu_items = things_menu.get_items()
-        thing_menu_item_names = [
-            item.name for item in thing_menu_items if hasattr(item, 'name')]
-        item_names = ['Configure addon ...', 'Thing list ...',
-                      'Add new thing ...']
-
+        thing_menu_item_names = [force_text(item.name) for item in thing_menu_items if hasattr(item, 'name')]  # noqa
+        item_names = ['Configure addon', 'Thing list', 'Add new thing']
         for item_name in item_names:
-            self.assertTrue(item_name in thing_menu_item_names)
+            # Older versions of the CMS have an extra space
+            for ending in ['...', ' ...']:
+                if "{0}{1}".format(item_name, ending) in thing_menu_item_names:
+                    break
+            else:
+                self.fail('Item: "{0}" not found.'.format(item_name))

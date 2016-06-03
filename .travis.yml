@@ -1,11 +1,29 @@
 language: python
 
+# Without this, we cannot test Py35
+python: 3.5
+
 # Use container based infrastructure
 sudo: false
 
 env:
   matrix:
     - TOXENV=flake8
+
+    - TOXENV=py35-dj19-cms33
+    - TOXENV=py34-dj19-cms33
+    - TOXENV=py27-dj19-cms33
+    - TOXENV=py35-dj19-cms32
+    - TOXENV=py34-dj19-cms32
+    - TOXENV=py27-dj19-cms32
+
+    - TOXENV=py35-dj18-cms33
+    - TOXENV=py34-dj18-cms33
+    - TOXENV=py27-dj18-cms33
+    - TOXENV=py35-dj18-cms32
+    - TOXENV=py34-dj18-cms32
+    - TOXENV=py27-dj18-cms32
+
     - TOXENV=py34-dj18-cms31
     - TOXENV=py27-dj18-cms31
     - TOXENV=py34-dj17-cms31
